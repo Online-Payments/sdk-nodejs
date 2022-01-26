@@ -1,0 +1,40 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "amountOfMoney" : {
+      "$ref" : "#/definitions/AmountOfMoney"
+    },
+    "references" : {
+      "$ref" : "#/definitions/PaymentReferences"
+    }
+  },
+  "additionalProperties" : false,
+  "definitions" : {
+    "AmountOfMoney" : {
+      "type" : "object",
+      "properties" : {
+        "amount" : {
+          "type" : "integer",
+          "maximum" : 999999999999
+        },
+        "currencyCode" : {
+          "type" : "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "PaymentReferences" : {
+      "type" : "object",
+      "properties" : {
+        "merchantParameters" : {
+          "type" : "string"
+        },
+        "merchantReference" : {
+          "type" : "string"
+        }
+      },
+      "additionalProperties" : false
+    }
+  }
+}

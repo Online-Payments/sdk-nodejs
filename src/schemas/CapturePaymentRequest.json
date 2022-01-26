@@ -1,0 +1,31 @@
+{
+  "$schema" : "http://json-schema.org/draft-04/schema#",
+  "type" : "object",
+  "properties" : {
+    "amount" : {
+      "type" : "integer",
+      "maximum" : 9223372036854775807
+    },
+    "isFinal" : {
+      "type" : "boolean"
+    },
+    "references" : {
+      "$ref" : "#/definitions/PaymentReferences"
+    }
+  },
+  "additionalProperties" : false,
+  "definitions" : {
+    "PaymentReferences" : {
+      "type" : "object",
+      "properties" : {
+        "merchantParameters" : {
+          "type" : "string"
+        },
+        "merchantReference" : {
+          "type" : "string"
+        }
+      },
+      "additionalProperties" : false
+    }
+  }
+}
