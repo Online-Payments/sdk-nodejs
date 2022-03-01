@@ -1,6 +1,6 @@
 {
   "name": "onlinepayments-sdk-nodejs",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "SDK to communicate with the Online Payments platform using the Online Payments Server API",
   "scripts": {
     "test": "jest",
@@ -32,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/online-payments/sdk-nodejs.git"
+    "url": "git+https://github.com/Online-Payments/sdk-nodejs.git"
   },
   "author": "Online Payments",
   "license": "SEE LICENSE IN LICENSE.txt",
   "bugs": {
-    "url": "https://github.com/online-payments/sdk-nodejs/issues"
+    "url": "https://github.com/Online-Payments/sdk-nodejs/issues"
   },
-  "homepage": "https://github.com/online-payments/sdk-nodejs#readme",
+  "homepage": "https://github.com/Online-Payments/sdk-nodejs#readme",
   "files": [
     "src/*"
   ]
