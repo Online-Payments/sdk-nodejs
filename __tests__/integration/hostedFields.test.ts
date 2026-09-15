@@ -36,10 +36,12 @@ describe("Hosted fields", () => {
     });
 
     describe("with missing locale", () => {
-      test("shouldThrowValidationException", () => {
+      test("shouldThrowValidationException", async () => {
         const request = new CreateHostedFieldsSessionRequestBuilder().withLocale(null).build();
+        const response = await client.hostedFields.createHostedFieldsSession(config.merchantId, request);
 
-        expect(() => client.hostedFields.createHostedFieldsSession(config.merchantId, request)).toThrow("is not of a type(s) string");
+        expect(response.isSuccess).toBe(false);
+        expect(response.status).toBe(400);
       });
     });
 
