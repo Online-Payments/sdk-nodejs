@@ -11,10 +11,9 @@ import {
   CreatePaymentResponse,
   PaymentDetailsResponse,
   PaymentResponse,
-  PaymentStatusOutput,
   RefundErrorResponse,
   RefundResponse
-} from "../../src/generated/model/domain/index.js";
+} from "../../src/generated/model/domain";
 
 const NON_EXISTING_PAYMENT_ID = "9999999999_0";
 
@@ -248,21 +247,14 @@ describe("Payments", () => {
       expect(response.status).toBe(404);
     });
 
-    test("shouldReturnStatusUnsuccessfulWhenCancelledAfterCapture", async () => {
+    test("shouldReturn400WhenCancelledAfterCapture", async () => {
       const paymentId = await createPaymentAndGetId();
       await client.payments.capturePayment(config.merchantId, paymentId, new CapturePaymentRequestBuilder().build(), {});
 
       const response = await client.payments.cancelPayment(config.merchantId, paymentId, new CancelPaymentRequestBuilder().build(), {});
 
-      const body = response.body as CancelPaymentResponse;
-      expect(body.payment).toBeTruthy();
-
-      const paymentResponse = body.payment as PaymentResponse;
-      expect(paymentResponse.statusOutput).toBeTruthy();
-
-      const statusOutput = paymentResponse.statusOutput as PaymentStatusOutput;
-      expect(statusOutput.statusCategory).toBeTruthy();
-      expect(statusOutput.statusCategory).toBe("UNSUCCESSFUL");
+      expect(response.isSuccess).toBe(false);
+      expect(response.status).toBe(400);
     });
 
     test("shouldReturn400WhenPartialCancelAfterPartialCaptureExceedsRemaining", async () => {
@@ -292,22 +284,15 @@ describe("Payments", () => {
       expect(response.status).toBe(400);
     });
 
-    test("shouldReturnStatusUnsuccessfulWhenCancelledAfterRefund", async () => {
+    test("shouldReturn400WhenCancelledAfterRefund", async () => {
       const paymentId = await createPaymentAndGetId();
       await client.payments.capturePayment(config.merchantId, paymentId, new CapturePaymentRequestBuilder().build(), {});
       await client.payments.refundPayment(config.merchantId, paymentId, new RefundRequestBuilder().build(), {});
 
       const response = await client.payments.cancelPayment(config.merchantId, paymentId, new CancelPaymentRequestBuilder().build(), {});
 
-      const body = response.body as CancelPaymentResponse;
-      expect(body.payment).toBeTruthy();
-
-      const paymentResponse = body.payment as PaymentResponse;
-      expect(paymentResponse.statusOutput).toBeTruthy();
-
-      const statusOutput = paymentResponse.statusOutput as PaymentStatusOutput;
-      expect(statusOutput.statusCategory).toBeTruthy();
-      expect(statusOutput.statusCategory).toBe("UNSUCCESSFUL");
+      expect(response.isSuccess).toBe(false);
+      expect(response.status).toBe(400);
     });
 
     test("shouldReturn400WhenCancelledAfterPreviousCancel", async () => {
